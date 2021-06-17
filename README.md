@@ -6,7 +6,7 @@
 - добавление/изменение/удаление опросов: ```http://host:port/api/quiz```
 
   примеры http запросов:
-    ```
+    ```http request
     POST http://localhost:8000/api/quiz/
     Content-Type: application/json
     Authorization: Token <admin token>
@@ -18,7 +18,7 @@
       "end_date": "2021-06-30"
     }
     ```
-    ```
+    ```http request
     PATCH http://localhost:8000/api/quiz/1/
     Content-Type: application/json
     Authorization: Token <admin token>
@@ -27,7 +27,7 @@
       "description": "quiz1_description_patched"
     }
     ```
-    ```
+    ```http request
     DELETE http://localhost:8000/api/quiz/1/
     Content-Type: application/json
     Authorization: Token <admin token>
