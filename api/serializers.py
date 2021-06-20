@@ -174,7 +174,7 @@ class QuestionSerializer(serializers.ModelSerializer):
                 for a in answer_options
             ]
             QuestionAnswerOptions.objects.bulk_create(answer_options_objs)
-        return instance
+        return super().update(instance, validated_data)
 
 
 class QuestionAnswerSerializer(QuestionSerializer):
