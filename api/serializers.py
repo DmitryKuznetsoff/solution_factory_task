@@ -10,6 +10,7 @@ class UserAnswerOptionsSerializer(serializers.ModelSerializer):
     """
     Сериализатор для выбранных пользователем вариантов ответов
     """
+
     class Meta:
         model = UserAnswerOptions
         fields = ['answer_option', ]
@@ -19,6 +20,7 @@ class QuestionsAnswerOptionsSerializer(serializers.ModelSerializer):
     """
     Сериализатор для вариантов ответа на вопрос
     """
+
     class Meta:
         model = QuestionAnswerOptions
         fields = ['id', 'name', ]
@@ -85,6 +87,13 @@ class AnswerSerializer(serializers.ModelSerializer):
                 attrs.pop('text')
             except KeyError:
                 pass
+
+            existing_answer_options_ids = {a.id for a in question.answer_options.all()}
+            user_answer_options_ids = {a['answer_option'].id for a in user_answer_options}
+            check_answer_options = user_answer_options_ids - existing_answer_options_ids
+            if check_answer_options:
+                raise ValidationError({'ValidationError': 'В запросе присутствуют варианты ответов, не соответствующие '
+                                                          f'предложенным в вопросе: {check_answer_options}'})
 
         return attrs
 
